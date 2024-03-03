@@ -1,3 +1,5 @@
+'use strict';
+
 class OrderItem {
   #quantity;
   #size;
@@ -34,31 +36,51 @@ class OrderItem {
   }
 
   cost() {
-    let drinkCosts = {
-      "Short": 2.99,
-      "Tall": 3.19,
-      "Grande": 3.49,
-      "Venti": 3.99
-    };
-    let teaCosts = {
-      "Short": 2.85,
-      "Tall": 3.05,
-      "Grande": 3.25,
-      "Venti": 3.50
-    };
-
-    let cost = 0;
-
-    if (this.#description.toLowerCase().includes('coffee')) {
-      cost = drinkCosts[this.#size];
-    } else if (this.#description.toLowerCase().includes('tea')) {
-      cost = teaCosts[this.#size];
+    let baseCost = 0;
+    switch (this.#description.toLowerCase()) {
+      case 'coffee':
+        switch (this.#size.toLowerCase()) {
+          case 'short':
+            baseCost = 2.99;
+            break;
+          case 'tall':
+            baseCost = 3.19;
+            break;
+          case 'grande':
+            baseCost = 3.49;
+            break;
+          case 'venti':
+            baseCost = 3.99;
+            break;
+          default:
+            throw new Error('Invalid size');
+        }
+        break;
+      case 'tea':
+        switch (this.#size.toLowerCase()) {
+          case 'short':
+            baseCost = 2.85;
+            break;
+          case 'tall':
+            baseCost = 3.05;
+            break;
+          case 'grande':
+            baseCost = 3.25;
+            break;
+          case 'venti':
+            baseCost = 3.50;
+            break;
+          default:
+            throw new Error('Invalid size');
+        }
+        break;
+      default:
+        throw new Error('Invalid description');
     }
-
-    return cost * this.#quantity;
+    return this.#quantity * baseCost;
   }
 }
 
-// Example usage:
-let item1 = new OrderItem(2, "Grande", "Coffee");
-console.log(item1.cost()); // Output: 6.98
+// Example usage
+const orderItem = new OrderItem(2, 'Tall', 'Coffee');
+console.log(orderItem.cost()); // Output: 6.38
