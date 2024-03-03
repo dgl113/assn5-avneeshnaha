@@ -7,8 +7,17 @@ class OrderItem {
 
     constructor(quantity, size, description) {
         this.#quantity = quantity;
-        this.#size = size;
+        this.#size = this.validateSize(size);
         this.#description = description;
+    }
+
+    validateSize(size) {
+        const validSizes = ["short", "tall", "grande", "venti"];
+        const normalizedSize = size.toLowerCase().trim();
+        if (!validSizes.includes(normalizedSize)) {
+            throw new Error('Invalid size');
+        }
+        return normalizedSize;
     }
 
     get quantity() {
@@ -24,7 +33,7 @@ class OrderItem {
     }
 
     set size(value) {
-        this.#size = value;
+        this.#size = this.validateSize(value);
     }
 
     get description() {
@@ -42,7 +51,7 @@ class OrderItem {
         let unitPrice;
 
         if (this.#description.toLowerCase().includes('coffee')) {
-            switch (this.#size.toLowerCase()) {
+            switch (this.#size) {
                 case 'short':
                     unitPrice = 2.99;
                     break;
@@ -59,7 +68,7 @@ class OrderItem {
                     throw new Error('Invalid size');
             }
         } else if (this.#description.toLowerCase().includes('tea')) {
-            switch (this.#size.toLowerCase()) {
+            switch (this.#size) {
                 case 'short':
                     unitPrice = 2.85;
                     break;
@@ -88,3 +97,5 @@ class OrderItem {
         return this.#quantity * unitPrice;
     }
 }
+
+module.exports = OrderItem;
