@@ -1,45 +1,40 @@
 'use strict';
 
 class OrderItem {
-    #quantity;
-    #size;
-    #description;
-
     constructor(quantity, size, description) {
-        this.#quantity = quantity;
-        this.#size = size;
-        this.#description = description;
+        this._quantity = quantity;
+        this._size = size;
+        this._description = description;
     }
 
     get quantity() {
-        return this.#quantity;
+        return this._quantity;
     }
 
     set quantity(value) {
-        this.#quantity = value;
+        this._quantity = value;
     }
 
     get size() {
-        return this.#size;
+        return this._size;
     }
 
     set size(value) {
-        this.#size = value;
+        this._size = value;
     }
 
     get description() {
-        return this.#description;
+        return this._description;
     }
 
     set description(value) {
-        this.#description = value;
+        this._description = value;
     }
 
     cost() {
         let unitPrice;
-        // Determine unit price based on description
-        if (this.#description.toLowerCase().includes('coffee')) {
-            switch (this.#size.toLowerCase()) {
+        if (this._description.toLowerCase().includes('coffee')) {
+            switch (this._size.toLowerCase()) {
                 case 'short':
                     unitPrice = 2.99;
                     break;
@@ -55,8 +50,8 @@ class OrderItem {
                 default:
                     throw new Error('Invalid size');
             }
-        } else if (this.#description.toLowerCase().includes('tea')) {
-            switch (this.#size.toLowerCase()) {
+        } else if (this._description.toLowerCase().includes('tea')) {
+            switch (this._size.toLowerCase()) {
                 case 'short':
                     unitPrice = 2.85;
                     break;
@@ -75,7 +70,6 @@ class OrderItem {
         } else {
             throw new Error('Invalid description');
         }
-        // Calculate total cost
-        return this.#quantity * unitPrice;
+        return this._quantity * unitPrice;
     }
 }
