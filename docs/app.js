@@ -1,90 +1,64 @@
-'use strict';
-
 class OrderItem {
-    #quantity;
-    #size;
-    #description;
+  #quantity;
+  #size;
+  #description;
 
-    constructor(quantity, size, description) {
-        this.#quantity = quantity;
-        this.#size = size;
-        this.#description = description;
+  constructor(quantity, size, description) {
+    this.#quantity = quantity;
+    this.#size = size;
+    this.#description = description;
+  }
+
+  get quantity() {
+    return this.#quantity;
+  }
+
+  set quantity(value) {
+    this.#quantity = value;
+  }
+
+  get size() {
+    return this.#size;
+  }
+
+  set size(value) {
+    this.#size = value;
+  }
+
+  get description() {
+    return this.#description;
+  }
+
+  set description(value) {
+    this.#description = value;
+  }
+
+  cost() {
+    let drinkCosts = {
+      "Short": 2.99,
+      "Tall": 3.19,
+      "Grande": 3.49,
+      "Venti": 3.99
+    };
+    let teaCosts = {
+      "Short": 2.85,
+      "Tall": 3.05,
+      "Grande": 3.25,
+      "Venti": 3.50
+    };
+
+    let cost = 0;
+
+    if (this.#description.toLowerCase().includes('coffee')) {
+      cost = drinkCosts[this.#size];
+    } else if (this.#description.toLowerCase().includes('tea')) {
+      cost = teaCosts[this.#size];
     }
 
-    get quantity() {
-        return this.#quantity;
-    }
-
-    set quantity(value) {
-        this.#quantity = value;
-    }
-
-    get size() {
-        return this.#size;
-    }
-
-    set size(value) {
-        this.#size = value;
-    }
-
-    get description() {
-        return this.#description;
-    }
-
-    set description(value) {
-        this.#description = value;
-    }
-
-    cost() {
-        console.log('Description:', this.#description);
-        console.log('Size:', this.#size);
-
-        let unitPrice;
-
-        if (this.#description.toLowerCase().includes('coffee')) {
-            switch (this.#size.toLowerCase()) {
-                case 'short':
-                    unitPrice = 2.99;
-                    break;
-                case 'tall':
-                    unitPrice = 3.19;
-                    break;
-                case 'grande':
-                    unitPrice = 3.49;
-                    break;
-                case 'venti':
-                    unitPrice = 3.99;
-                    break;
-                default:
-                    throw new Error('Invalid size');
-            }
-        } else if (this.#description.toLowerCase().includes('tea')) {
-            switch (this.#size.toLowerCase()) {
-                case 'short':
-                    unitPrice = 2.85;
-                    break;
-                case 'tall':
-                    unitPrice = 3.05;
-                    break;
-                case 'grande':
-                    unitPrice = 3.25;
-                    break;
-                case 'venti':
-                    unitPrice = 3.50;
-                    break;
-                default:
-                    throw new Error('Invalid size');
-            }
-        } else {
-            throw new Error('Invalid description');
-        }
-
-        if (typeof unitPrice === 'undefined') {
-            throw new Error('Invalid size');
-        }
-
-        console.log('Unit price:', unitPrice);
-
-        return this.#quantity * unitPrice;
-    }
+    return cost * this.#quantity;
+  }
 }
+
+// Example usage:
+let item1 = new OrderItem(2, "Grande", "Coffee");
+console.log(item1.cost()); // Output: 6.98
