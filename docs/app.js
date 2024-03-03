@@ -1,41 +1,45 @@
 'use strict';
 
 class OrderItem {
+    #quantity;
+    #size;
+    #description;
+
     constructor(quantity, size, description) {
-        this._quantity = quantity;
-        this._size = size;
-        this._description = description;
+        this.#quantity = quantity;
+        this.#size = size;
+        this.#description = description;
     }
 
     get quantity() {
-        return this._quantity;
+        return this.#quantity;
     }
 
     set quantity(value) {
-        this._quantity = value;
+        this.#quantity = value;
     }
 
     get size() {
-        return this._size;
+        return this.#size;
     }
 
     set size(value) {
-        this._size = value;
+        this.#size = value;
     }
 
     get description() {
-        return this._description;
+        return this.#description;
     }
 
     set description(value) {
-        this._description = value;
+        this.#description = value;
     }
 
     cost() {
         let unitPrice;
         // Determine unit price based on description
-        if (this._description.toLowerCase().includes('coffee')) {
-            switch (this._size.toLowerCase()) {
+        if (this.#description.toLowerCase().includes('coffee')) {
+            switch (this.#size.toLowerCase()) {
                 case 'short':
                     unitPrice = 2.99;
                     break;
@@ -51,8 +55,8 @@ class OrderItem {
                 default:
                     throw new Error('Invalid size');
             }
-        } else if (this._description.toLowerCase().includes('tea')) {
-            switch (this._size.toLowerCase()) {
+        } else if (this.#description.toLowerCase().includes('tea')) {
+            switch (this.#size.toLowerCase()) {
                 case 'short':
                     unitPrice = 2.85;
                     break;
@@ -72,6 +76,6 @@ class OrderItem {
             throw new Error('Invalid description');
         }
         // Calculate total cost
-        return this._quantity * unitPrice;
+        return this.#quantity * unitPrice;
     }
 }
