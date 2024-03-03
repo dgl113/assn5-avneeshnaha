@@ -76,6 +76,10 @@ class OrderItem {
             throw new Error('Invalid description');
         }
 
+        if (typeof unitPrice === 'undefined') {
+            throw new Error('Invalid size');
+        }
+
         return this.#quantity * unitPrice;
     }
 }
