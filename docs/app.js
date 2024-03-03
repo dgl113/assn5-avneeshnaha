@@ -36,6 +36,9 @@ class OrderItem {
     }
 
     cost() {
+        console.log('Description:', this.#description);
+        console.log('Size:', this.#size);
+
         let unitPrice;
 
         if (this.#description.toLowerCase().includes('coffee')) {
@@ -79,6 +82,8 @@ class OrderItem {
         if (typeof unitPrice === 'undefined') {
             throw new Error('Invalid size');
         }
+
+        console.log('Unit price:', unitPrice);
 
         return this.#quantity * unitPrice;
     }
